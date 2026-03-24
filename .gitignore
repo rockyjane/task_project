@@ -1,0 +1,36 @@
+# env 一般來說不上傳，這邊只是個人專案挑戰
+# .env
+
+# mac
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# node
+node_modules/
+dist/
+build/
+
+# python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+*.tmp
+
+# 虛擬環境
+venv/
+backend/venv/
+
+# docker
+mysql_data/
+
+# pytest（之後可能用）
+.pytest_cache/
+
+# coverage
+.coverage
+htmlcov/

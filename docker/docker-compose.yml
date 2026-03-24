@@ -1,0 +1,48 @@
+# docker-compose 檔案版本 - version 3 是目前最常見的版本
+version: '3'
+# services 代表要啟動哪些 container
+services:
+  # -----------------------------
+  # MySQL 資料庫服務
+  # -----------------------------
+  mysql:
+    # 使用官方 mysql image
+    image: mysql:8
+    # container 名稱（方便 docker ps 時辨識）
+    container_name: task_mysql
+    # container 當機時自動重啟
+    restart: always
+    # 環境變數（初始化 mysql）
+    environment:
+      # root 使用者密碼 - root 是 mysql 最高權限帳號
+      MYSQL_ROOT_PASSWORD: root
+      # container 啟動時自動建立的 database
+      MYSQL_DATABASE: taskdb
+      # taskdb 供給 application 用的帳密
+      MYSQL_USER: taskuser
+      MYSQL_PASSWORD: taskpass
+    # port mapping - 左邊：你電腦 port，右邊：container port
+    ports:
+      - "3306:3306"
+    # 映像檔暫存區
+    volumes:
+      - mysql_data:/var/lib/mysql
+  # -----------------------------
+  # phpMyAdmin 管理介面
+  # -----------------------------
+  phpmyadmin:
+    # phpMyAdmin 官方 image
+    image: phpmyadmin
+    # container 名稱
+    container_name: task_phpmyadmin
+    restart: always
+    # port mapping
+    ports:
+      - "8080:80"
+    # phpMyAdmin 環境變數
+    environment:
+      # 告訴 phpMyAdmin MySQL server 在哪裡
+      PMA_HOST: mysql
+# 映像檔建立
+volumes:
+  mysql_data:
