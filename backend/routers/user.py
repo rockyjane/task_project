@@ -14,7 +14,7 @@ router = APIRouter()
 @router.post("/register")
 def register(
     user: UserCreate,             # request body（自動驗證）
-    db: Session = Depends(get_db) # 注入 DB（很重要）
+    db: Session = Depends(get_db) # 注入 DB（SQL ORM 化接著注入）
 ):
     # 建立一個 User 物件（還沒進 DB）
     new_user = User(
